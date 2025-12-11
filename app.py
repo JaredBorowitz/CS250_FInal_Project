@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, \
     logout_user, current_user, login_required
 from werkzeug.utils import redirect
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -96,6 +97,19 @@ def nmap():
             if slider_val:
                 t_speed = f"-T{slider_val}"
         nmap_string = f"nmap {sv} {sc} {su} {so} {port} {t_speed} {address}"
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        thmName = request.form['thmName']
+        userName = current_user.username
+
+        fileName = f"{userName}{timestamp}.txt"
+
+        print(fileName)
+        print(thmName)
+
+        fullString = f"{nmap_string} -oN {fileName}"
+
+        os.system(fullString)
+
         return render_template("nmapForm.html", nmap = nmap_string)
 
 
