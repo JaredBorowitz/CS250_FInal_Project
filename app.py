@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, \
     logout_user, current_user, login_required
 from werkzeug.utils import redirect
 from datetime import datetime
+from os import system
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -108,7 +109,7 @@ def nmap():
 
         fullString = f"{nmap_string} -oN {fileName}"
 
-        os.system(fullString)
+        system(fullString)
 
         return render_template("nmapForm.html", nmap = nmap_string)
 
