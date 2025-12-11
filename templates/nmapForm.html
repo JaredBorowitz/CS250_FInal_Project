@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block body %}
+    {% if error %}
+        <h2>{{ error }}</h2>
+    {% endif %}
+    {% if nmap %}
+        <h2>{{ nmap }}</h2>
+    {% endif %}
+    <h2 id="preview"></h2>
+    <form action="/nmapForm" method="POST">
+        TryHackMe Module: <input type="text" name="thmName" id="thmName" required><br>
+        IP Adrress: <input type="text" name="address" id="address" oninput="updateNmap()" onblur="openOptions()"><br>
+        <span id="cmd_options" hidden>
+            -sV: <input type="checkbox" name="sv" id="sv" value="-sV" onchange="updateNmap()"><br>
+            -sC: <input type="checkbox" name="sc" id="sc" value="-sC" onchange="updateNmap()"><br>
+            -sU: <input type="checkbox" name="su" id="su" value="-sU" onchange="updateNmap()"><br>
+            -sO: <input type="checkbox" name="so" id="so" value="-sO" onchange="updateNmap()"><br>
+            -p (select ports): <input type="checkbox" name="p_check" id="p_check" onchange="openPorts()"> <br>
+            <span id="port1" hidden>
+                -p-(all): <input type="radio" name="port" id="p_all" value="-p-" onchange="updateNmap()"><br>
+            </span>
+            <span id="port2" hidden>
+                -p ##(one): <input type="radio" name="port" id="p_one" value="-p " onchange="openPort1()"><br>
+                <input type="number" name = 'p_one_num' id="p_one_num"  onchange="updateNmap()" hidden><br>
+            </span>
+            <span id="port3" hidden>
+                -p ##-##(range): <input type="radio" name="port" id="p_range" value="-p" onchange="openPort2()"><br>
+                <input type="number" name="p_rng_str" id="p_rng_str" hidden>
+                - <input type="number" name="p_rng_end" id="p_rng_end"  onchange="updateNmap()" hidden><br>
+            </span>
+            -T: <input type="checkbox" name="-T" id="t_speed" value = "-T " onchange="openTSpeed()"><br>
+            <span id="t_slider" hidden>
+                <input type="range" name="t_num" min="0" max="5" id="t_num" onchange="adjustT()">
+                <span id="t_range">0</span><br>
+            </span>
+        </span>
+
+
+
+        <input type="submit"><br>
+    </form>
+
+    <ul>
+        <li>-sV: get version info for services</li>
+        <li>-sC: runs nmap's default scripts</li>
+        <li>-sU: scan for UDP packets</li>
+        <li>-sO: IP protocol scan</li>
+        <li>-p-: Scan all ports (1-65535)</li>
+        <li>-p ##: Scan specific port ##</li>
+        <li>-p ##-##: Scan specific port range ##-##</li>
+        <li>-T: Speed of scans (0-5)</li>
+    </ul>
+{% endblock %}
