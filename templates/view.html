@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<h2>NMap scans</h2>
+<table>
+    <tr>
+        <th>id</th>
+        <th>TryHackMe</th>
+        <th>date</th>
+        <th>nmap string</th>
+        <th>result</th>
+    </tr>
+    {% for nmap in nmaps %}
+    <tr>
+        <td>{{ nmap.id }}</td>
+        <td>{{ nmap.THMname }}</td>
+        <td>{{ nmap.date }}</td>
+        <td>{{ nmap.nmapStr }}</td>
+        <td><pre>{{ results[loop.index0] }}</pre></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

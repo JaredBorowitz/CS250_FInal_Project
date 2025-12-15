@@ -18,7 +18,8 @@ class User(UserMixin, db.Model):
 class NMap(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     THMname = db.Column(db.String)
-    nmapStr = db.column(db.String)
+    date = db.Column(db.String)
+    nmapStr = db.Column(db.String)
     fileRoute = db.Column(db.String)
 
 with app.app_context():
@@ -77,6 +78,7 @@ def login():
         return "Error"
 
 @app.route('/nmapForm', methods=['GET','POST'])
+@login_required
 def nmap():
     if request.method=='GET':
         return render_template("nmapForm.html")
@@ -102,7 +104,7 @@ def nmap():
         thmName = request.form['thmName']
         userName = current_user.username
 
-        fileName = f"{userName}{timestamp}.txt"
+        fileName = f"static/{userName}{timestamp}.txt"
 
         print(fileName)
         print(thmName)
@@ -110,9 +112,27 @@ def nmap():
         fullString = f"{nmap_string} -oN {fileName}"
 
         system(fullString)
+        date=datetime.now().strftime("%d%m%Y")
+
+        nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
+        db.session.add(nmap)
+        db.session.commit()
 
         return render_template("nmapForm.html", nmap = nmap_string)
 
+
+@app.route("/view")
+def view():
+    nmaps = NMap.query.all()
+    results = []
+    for i in nmaps:
+        filepath = i.filepath
+        with open(filepath, "r", errors=replace) as f:
+            results.append(f.read())
+
+
+    print(filepaths)
+    return render_template("view.html", nmaps=nmaps, results=results)
 
 @app.errorhandler(404)
 def e404(err):

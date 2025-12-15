@@ -9,15 +9,16 @@
                 <a href="/">HOME</a>
             </li>
             <li>
+                <a href="/create">CREATE USER</a>
+            </li>
+            <li>
                 <a href="/login">LOGIN</a>
             </li>
+            {% if current_user.is_authenticated %}
             <li>
                 <a href="/nmapForm">NMAP</a>
             </li>
-            <li>
-                <a href="/create">CREATE USER</a>
-            </li>
-
+            {% endif %}
         </ul>
     </nav>
     {% block body %}{% endblock %}
