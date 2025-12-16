@@ -127,7 +127,7 @@ def view():
     results = []
     for i in nmaps:
         filepath = i.fileRoute
-        with open(filepath, "r", errors=replace) as f:
+        with open(filepath, "r") as f:
             results.append(f.read())
 
     return render_template("view.html", nmaps=nmaps, results=results)
