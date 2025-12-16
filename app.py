@@ -126,7 +126,7 @@ def view():
     nmaps = NMap.query.all()
     results = []
     for i in nmaps:
-        filepath = i.filepath
+        filepath = i.fileRoute
         with open(filepath, "r", errors=replace) as f:
             results.append(f.read())
 
