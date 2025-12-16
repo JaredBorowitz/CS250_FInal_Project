@@ -130,8 +130,6 @@ def view():
         with open(filepath, "r", errors=replace) as f:
             results.append(f.read())
 
-
-    print(filepaths)
     return render_template("view.html", nmaps=nmaps, results=results)
 
 @app.errorhandler(404)
