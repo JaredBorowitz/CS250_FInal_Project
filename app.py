@@ -112,7 +112,7 @@ def nmap():
         fullString = f"{nmap_string} -oN {fileName}"
 
         system(fullString)
-        date=datetime.now().strftime("%d%m%Y")
+        date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
         nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
         db.session.add(nmap)
