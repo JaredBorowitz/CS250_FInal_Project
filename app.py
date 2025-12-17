@@ -4,7 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, \
     logout_user, current_user, login_required
 from werkzeug.utils import redirect
 from datetime import datetime
-from os import system
+from os import system, remove
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -151,17 +151,17 @@ def update():
             db.session.commit()
             return redirect("/")
 
-@app.route('/delete_scan/<int:scna_id>', methods=['POST'])
+@app.route('/delete_scan/<int:scan_id>', methods=['POST'])
 @login_required
 def delete_scan(scan_id):
-    scan = NMap.query.filter_by(scan_id)
+    scan = NMap.query.get_or_404(scan_id)
 
     if scan.fileRoute:
         try:
-            os.remove(scan.fileRoute)
+            remove(scan.fileRoute)
         except FileNotFoundError:
             pass
-    db.session.delete(scan.fileRoute)
+    db.session.delete(scan)
     db.session.commit()
 
     return redirect("/view")
