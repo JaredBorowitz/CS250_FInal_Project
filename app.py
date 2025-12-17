@@ -14,9 +14,11 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
+    scans = db.relationship('NMap', backref='user', lazy=True)
 
 class NMap(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     THMname = db.Column(db.String)
     date = db.Column(db.String)
     nmapStr = db.Column(db.String)
@@ -114,7 +116,7 @@ def nmap():
         system(fullString)
         date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
+        nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName, user_id=current_user)
         db.session.add(nmap)
         db.session.commit()
 
@@ -122,8 +124,9 @@ def nmap():
 
 
 @app.route("/view")
+@login_required
 def view():
-    nmaps = NMap.query.all()
+    nmaps = NMap.query.filter_by(user_id=current_user.id).all()
     results = []
     for i in nmaps:
         filepath = i.fileRoute
