@@ -118,7 +118,7 @@ def nmap():
 
         new_nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
         new_nmap.user_id = current_user
-        db.session.add(nmap)
+        db.session.add(new_nmap)
         db.session.commit()
 
         return render_template("nmapForm.html", nmap = nmap_string)
