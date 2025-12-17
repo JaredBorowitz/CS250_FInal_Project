@@ -16,7 +16,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String)
     scans = db.relationship('NMap', backref='user', lazy=True)
 
-class NMap(UserMixin, db.Model):
+class NMap(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     THMname = db.Column(db.String)
@@ -116,8 +116,7 @@ def nmap():
         system(fullString)
         date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        new_nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
-        new_nmap.user_id = current_user
+        new_nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName, user=current_user)
         db.session.add(new_nmap)
         db.session.commit()
 
