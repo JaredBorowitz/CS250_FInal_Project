@@ -8,6 +8,7 @@
         <th>date</th>
         <th>nmap string</th>
         <th>result</th>
+        <th>delete?</th>
     </tr>
     {% for nmap in nmaps %}
     <tr>
@@ -19,6 +20,11 @@
             <div>
                 {{ results[loop.index0] }}
             </div>
+        </td>
+        <td>
+            <form action="delete_scan/{{nmap.id}}" methods="post">
+                <button type="submit">DELETE</button>
+            </form>
         </td>
     </tr>
     {% endfor %}

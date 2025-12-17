@@ -135,6 +135,38 @@ def view():
 
     return render_template("view.html", nmaps=nmaps, results=results)
 
+@app.route('/update', methods=['GET','POST'])
+@login_required
+def update():
+    if request.method == 'GET':
+        return render_template("update.html")
+    elif request.method == 'POST':
+        current = request.form['current']
+        new = request.form['new']
+        if current != current_user.password:
+            error = "Current password did not match"
+            return render_template("update.html", error=error)
+        else:
+            current_user.password = new
+            db.session.commit()
+            return redirect("/")
+
+@app.route('/delete_scan/<int:scna_id>', methods=['POST'])
+@login_required
+def delete_scan(scan_id):
+    scan = NMap.query.filter_by(scan_id)
+
+    if scan.fileRoute:
+        try:
+            os.remove(scan.fileRoute)
+        except FileNotFoundError
+            pass
+    db.session.delete(scan.fileRoute)
+    db.session.commit()
+
+    return redirect("/view")
+
+
 @app.errorhandler(404)
 def e404(err):
     return render_template("error404.html")
