@@ -116,7 +116,8 @@ def nmap():
         system(fullString)
         date=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-        nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName, user_id=current_user)
+        new_nmap = NMap(THMname=thmName, date = date, nmapStr=nmap_string,fileRoute=fileName)
+        new_nmap.user_id = current_user
         db.session.add(nmap)
         db.session.commit()
 
