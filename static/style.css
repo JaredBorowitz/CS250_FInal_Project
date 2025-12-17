@@ -37,6 +37,7 @@ th {
 }
 
 .result {
+/*
   display:block;
   word-break: break-word;
   overflow-wrap:anywhere;
@@ -50,6 +51,18 @@ th {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-size: 0.85em;
   margin: 0;
+  */
+  max-width: 400px;
+  max-height: 200px;
+  overflow: auto;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+
+  background: #111;
+  color: #eaffea;
+  font-family: monospace;
+  padding: 10px;
 }
 nav ul li {
     display: inline;

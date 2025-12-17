@@ -15,7 +15,11 @@
         <td>{{ nmap.THMname }}</td>
         <td>{{ nmap.date }}</td>
         <td>{{ nmap.nmapStr }}</td>
-        <td class="result"><pre>{{ results[loop.index0] }}</pre></td>
+        <td class="result">
+            <div>
+                {{ results[loop.index0] }}
+            </div>
+        </td>
     </tr>
     {% endfor %}
 </table>
