@@ -159,7 +159,7 @@ def delete_scan(scan_id):
     if scan.fileRoute:
         try:
             os.remove(scan.fileRoute)
-        except FileNotFoundError
+        except FileNotFoundError:
             pass
     db.session.delete(scan.fileRoute)
     db.session.commit()
