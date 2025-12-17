@@ -37,6 +37,9 @@ th {
 }
 
 .result {
+  display:block;
+  word-break: break-word;
+  overflow-wrap:anywhere;
   max-width: 420px;
   max-height: 260px;
   overflow: auto;
