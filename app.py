@@ -123,7 +123,7 @@ def nmap():
         return render_template("nmapForm.html", nmap = nmap_string)
 
 
-@app.route("/view")
+@app.route("/view", methods=['GET','POST'])
 @login_required
 def view():
     nmaps = NMap.query.filter_by(user_id=current_user.id).all()
