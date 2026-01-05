@@ -46,5 +46,5 @@ While the application functions at a basic level, several limitaiotns were disco
   * Create a robust user input validation system
   * Consider adding additional tools that can be run in series (Gobuster, Hydra, WHOIS)
 
-##Disclaimer
+## Disclaimer
 This application is intended for educational purposes only. Running network scans against systems you do not own or have permission to test may be illegal.
