@@ -32,7 +32,7 @@ The core idea was to a build a we interface that:
   * The application demonstrates CRUD operations using a relational database
   * File cleanup is handled when scans are deleted
 
-![Scan Results](scan_database)
+![Scan Results](images/scan_database)
 
 ## Limitaions and Challenges
 While the application functions at a basic level, several limitaiotns were discovered
