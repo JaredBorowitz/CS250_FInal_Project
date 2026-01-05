@@ -13,7 +13,7 @@ The core idea was to a build a we interface that:
   * automatically saves the result to a database
   * allows authenticated users to revist previous scans instead of rerunning them.
 
-![Nmap Scan Form](images/nmap_scan.png)
+![Nmap Scan Form](images/nmap_scan)
 
 ## Technologies Used
   * Python Flask
@@ -32,7 +32,7 @@ The core idea was to a build a we interface that:
   * The application demonstrates CRUD operations using a relational database
   * File cleanup is handled when scans are deleted
 
-![Scan Results](scans_database.png)
+![Scan Results](scan_database)
 
 ## Limitaions and Challenges
 While the application functions at a basic level, several limitaiotns were discovered
